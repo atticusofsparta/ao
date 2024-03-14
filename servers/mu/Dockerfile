@@ -1,4 +1,4 @@
-FROM node:21
+FROM node:18
 
 RUN apt update && apt install -y bash git awscli
 
@@ -8,6 +8,10 @@ COPY ./package.json .
 COPY ./package-lock.json .
 COPY ./src ./src
 COPY ./entrypoint.sh ./entrypoint.sh
+COPY ./cranker ./cranker
+RUN if ! -f wallet.json; then \
+    npx -y @permaweb/wallet > wallet.json; \
+    fi
 
 RUN chmod +x /usr/app/entrypoint.sh
 
@@ -15,6 +19,6 @@ RUN npm install --ignore-engines
 
 ENV NODE_ENV=production
 
-EXPOSE 3005
+EXPOSE 3002
 
 ENTRYPOINT ["/usr/app/entrypoint.sh"]

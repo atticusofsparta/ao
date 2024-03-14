@@ -14,7 +14,7 @@
   "scripts": {
     "dev": "nodemon",
     "docker-build": "docker build -t cu-app .",
-    "docker-run": "npm run docker-build && docker run -p 3005:3005 cu-app",
+    "docker-run": "npm run docker-build && docker run -p 3002:3002 cu-app",
     "heapdump": "kill -USR2",
     "postinstall": "cd cranker && npm install",
     "start": "node -r dotenv/config src/app.js",

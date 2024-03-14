@@ -28,6 +28,7 @@ rsa = "0.6.1"
 dashmap = "5.5.3"
 base64 = "0.21.5"
 actix-cors = "0.6.0"
+openssl = { version = "0.10.35", features = ["vendored"] }
 
 [[bin]]
 name = "su"
