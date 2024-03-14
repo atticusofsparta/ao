@@ -7,7 +7,7 @@ services:
       - NODE_CONFIG_ENV="development"
       - NODE_HEAPDUMP_OPTIONS="nosignal"
       - DEBUG=*
-      - WALLET="wallet.json"
+      - WALLET_FILE=wallet.json
     ports: [ 3001:3001 ]
     # Add any additional configuration for the cu service if needed
   mu:
@@ -19,7 +19,7 @@ services:
       - GATEWAY_URL="https://arweave.net"
       - NODE_CONFIG_ENV="development"
       - DEBUG=*
-      - PATH_TO_WALLET="wallet.json"
+      - PATH_TO_WALLET=wallet.json
     ports: [ 3002:3002 ]
     depends_on:
       - cu
@@ -28,7 +28,7 @@ services:
     build:
       context: ./servers/su
     environment:
-      - SU_WALLET_PATH=./.wallet.json
+      - SU_WALLET_PATH=wallet.json
       - DATABASE_URL=postgresql://user:password@localhost/su
       - GATEWAY_URL=https://arweave.net/
       - UPLOAD_NODE_URL=https://up.arweave.net

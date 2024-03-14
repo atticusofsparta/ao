@@ -9,9 +9,6 @@ COPY ./package-lock.json .
 COPY ./src ./src
 COPY ./entrypoint.sh ./entrypoint.sh
 COPY ./cranker ./cranker
-RUN if ! -f wallet.json; then \
-    npx -y @permaweb/wallet > wallet.json; \
-    fi
 
 RUN chmod +x /usr/app/entrypoint.sh
 
