@@ -25,6 +25,6 @@ function handle(msgJSON, aoJSON)
     end)
 
     -- encode output
-    local responseJSON = json.encode({ok = status, response = response})
+    local responseJSON = json.encode({ ok = status, response = response })
     return responseJSON
 end
