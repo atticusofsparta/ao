@@ -28,6 +28,10 @@ RUN cd / && \
   make linux test && \
   make install
 
+# Copy SQLite C source into the build environment
+COPY ./src/sqlite3.c /lua-${LUA_VERSION}/src
+COPY ./src/sqlite3.h /lua-${LUA_VERSION}/src
+
 # Install luarocks
 RUN cd / && \
   curl -L https://luarocks.org/releases/luarocks-${LUAROCKS_VERSION}.tar.gz | tar xzf - && \
@@ -47,10 +51,17 @@ ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 RUN node --version
 RUN npm --version
 
+# Copy your build script and Lua project files
+COPY ./src/compile_lua_sqlite.sh ./compile_lua_sqlite.sh
+COPY src/ /src/
+# Make your script executable and run it
+RUN chmod +x ./compile_lua_sqlite.sh && \
+  ./compile_lua_sqlite.sh
+
 # And, re-compile lua with "generic WASM"
-RUN cd /lua-${LUA_VERSION} && \
-  make clean && \
-  make generic CC='emcc -s WASM=1 -U LUA_32BITS' 
+# RUN cd /lua-${LUA_VERSION} && \
+#   make clean && \
+#   make generic CC='emcc -s WASM=1 -s SIDE_MODULE=1 -U LUA_32BITS -I -I *.c sqlite3.c' 
 
 #############################
 ##### Install Commands ######
